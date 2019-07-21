@@ -1,14 +1,11 @@
 const express = require('express')
+const adminController = require('../controller/admin')
 
 const router = express.Router();
 
-router.get('/', (req, res, next) => {
-        res.send('Home')
-})
+router.get('/', adminController.showHome)
 
-router.post('/user/create', (req, res, next) => {
-        const user_info = req.body
-})
+router.post('/user/create', adminController.addUser)
 
 router.get('/login', (req, res, next) => {
         // returns login screem

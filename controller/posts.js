@@ -1,12 +1,10 @@
 const dbController = require('./db')
 
-// curl -d '{"content":"Partiu tomar mate da donja", "user_id":4}' -H "Content-Type: application/json" -X POST http://localhost:3000/posts/add
+// curl -d '{"content":"Partiu tomar mate da donja", "user_id":1}' -H "Content-Type: application/json" -X POST http://localhost:3000/posts/add
 exports.addPost = (req, res, next) => {
-        const content = req.body.content
-        const user_id = parseInt(req.body.user_id)
         const pool = dbController.connectDB()
         pool.query(`INSERT INTO posts (content, user_id) VALUES ($1, $2)`,
-                [content, user_id], (error, results) => {
+                [String(req.body.content), parseInt(req.body.user_id)], (error, results) => {
                         if (error) {
                                 res.status(400).send(error)
                         }
@@ -17,9 +15,8 @@ exports.addPost = (req, res, next) => {
 
 exports.getPostID = (req, res, next) => {
         const pool = dbController.connectDB()
-        const postID = parseInt(req.params.id)
         pool.query(`SELECT * FROM posts WHERE id = $1`,
-                [postID], (error, results) => {
+                [parseInt(req.params.id)], (error, results) => {
                         if (error) {
                                 res.status(400).send(error)
                         }
