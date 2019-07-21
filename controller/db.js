@@ -2,21 +2,23 @@ const {
         Pool
 } = require('pg')
 
-const pool = new Pool({
-        host: 'localhost',
-        port: 5432,
-        database: "twitterdb",
-        user: 'postgres',
-        password: 'c',
-        ssl: 'any',
-        max: 10,
-})
+exports.connectDB = () => {
+        const pool = new Pool({
+                host: 'localhost',
+                port: 5432,
+                database: "twitterdb",
+                user: 'postgres',
+                ssl: 'any',
+                max: 10,
+        })
 
-pool.connect()
-        .then(() => console.log('Connected on twitter database'))
-        .catch(err => console.error('Connection twitter database error', err.stack))
+        pool.connect()
+                .catch(err => console.error('Connection twitter database error', err.stack))
+        return pool
+}
 
-exports.initDB = () => {
+exports.initDB = function intiDB() {
+        const pool = this.connectDB()
         pool.query(`
                 CREATE TABLE IF NOT EXISTS users (
                         id SERIAL PRIMARY KEY UNIQUE,
@@ -37,10 +39,10 @@ exports.initDB = () => {
                         post_id integer,
                         FOREIGN KEY (post_id) REFERENCES posts (id),
                         FOREIGN KEY (user_id) REFERENCES users (id))`,
-                (error, result) => {
+                (error) => {
                         if (error) {
                                 console.log(error)
-                                // res.status(400).send(error)
                         }
                 })
+        pool.end()
 }

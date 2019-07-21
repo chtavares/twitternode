@@ -3,17 +3,10 @@ const express = require('express')
 const router = express.Router();
 
 router.get('/', (req, res, next) => {
-        // returns all posts on table
-        // res.send("Login_page")
-        client.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
-                if (error) {
-                        throw error
-                }
-                response.status(201).send(`User added with ID: ${result.insertId}`)
-        })
+        res.send('Home')
 })
 
-router.post('/use/create', (req, res, next) => {
+router.post('/user/create', (req, res, next) => {
         const user_info = req.body
 })
 

@@ -1,12 +1,13 @@
 const dbController = require('./db')
 
-// curl -d '{"content":"Partiu tomar mate da donja", "user_id":4}' -H "Content-Type: application/json" -X POST http://localhost:3000/posts/add
-exports.addPost = (req, res, next) => {
+// curl -d '{"content":"Vamos tomar sim", "user_id":1}' -H "Content-Type: application/json" -X POST http://localhost:3000/comments/add/post/1
+exports.addComments = (req, res, next) => {
         const content = req.body.content
-        const user_id = parseInt(req.body.user_id)
+        const userID = parseInt(req.body.user_id)
+        const postID = parseInt(req.params.id)
         const pool = dbController.connectDB()
-        pool.query(`INSERT INTO posts (content, user_id) VALUES ($1, $2)`,
-                [content, user_id], (error, results) => {
+        pool.query(`INSERT INTO comments (content, user_id, post_id) VALUES ($1, $2, $3)`,
+                [content, userID, postID], (error, results) => {
                         if (error) {
                                 res.status(400).send(error)
                         }
@@ -15,10 +16,10 @@ exports.addPost = (req, res, next) => {
         pool.end()
 }
 
-exports.getPostID = (req, res, next) => {
+exports.getCommentsID = (req, res, next) => {
         const pool = dbController.connectDB()
         const postID = parseInt(req.params.id)
-        pool.query(`SELECT * FROM posts WHERE id = $1`,
+        pool.query(`SELECT * FROM comments WHERE id = $1`,
                 [postID], (error, results) => {
                         if (error) {
                                 res.status(400).send(error)
@@ -28,16 +29,10 @@ exports.getPostID = (req, res, next) => {
         pool.end()
 }
 
-exports.deletePost = (req, res, next) => {
+exports.deleteComments = (req, res, next) => {
         const pool = dbController.connectDB()
         const postID = parseInt(req.params.id)
-        pool.query(`DELETE FROM comments WHERE post_id = $1`,
-                [postID], (error) => {
-                        if (error) {
-                                res.status(400).send(error)
-                        }
-                })
-        pool.query(`DELETE FROM posts WHERE id = $1`,
+        pool.query(`DELETE FROM comments WHERE id = $1`,
                 [postID], (error) => {
                         if (error) {
                                 res.status(400).send(error)
