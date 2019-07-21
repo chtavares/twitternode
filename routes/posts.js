@@ -1,5 +1,7 @@
 const express = require('express')
 
+const postsController = require('../controller/posts')
+
 const router = express.Router();
 
 router.post('/add', (req, res, next) => {
@@ -7,11 +9,7 @@ router.post('/add', (req, res, next) => {
         //add on database
 })
 
-router.get('/:id', (req, res, next) => {
-        const postID = req.params.id_post
-        // get id post
-
-})
+router.get('/:id', postsController.getPostID)
 
 router.post('/:id/edit', (req, res, next) => {
         const postID = req.params.id_post

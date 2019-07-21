@@ -4,7 +4,13 @@ const router = express.Router();
 
 router.get('/', (req, res, next) => {
         // returns all posts on table
-        res.send("Login_page")
+        // res.send("Login_page")
+        client.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email], (error, results) => {
+                if (error) {
+                        throw error
+                }
+                response.status(201).send(`User added with ID: ${result.insertId}`)
+        })
 })
 
 router.post('/use/create', (req, res, next) => {
@@ -30,7 +36,7 @@ router.get('/user/:id', (req, res, next) => {
         // return the id user
 })
 
-router.post('/user/:id/edit', (req, res, next) => {
+router.put('/user/:id/edit', (req, res, next) => {
         const userID = req.param.id
         // edit the id user
 
