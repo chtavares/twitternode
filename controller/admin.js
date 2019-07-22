@@ -11,7 +11,6 @@ exports.showHome = (req, res, next) => {
         pool.end()
 }
 
-// curl -d '{"email":"christian@gmail.com", "name":"christian tavares","password1":"123445" ,"password2":"123445"}' -H "Content-Type: application/json" -X POST http://localhost:3000/user/create
 exports.addUser = (req, res, next) => {
         const pool = dbController.connectDB()
         if (req.body.password1 === req.body.password2) {
