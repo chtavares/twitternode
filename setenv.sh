@@ -1,6 +1,7 @@
 # !/bin/bash
 
-export HOST='localhost';
-export DATABASE='twitterdb';
-export USERDB='postgres';
-export PORT=5432;
+export DBHOST='localhost';
+export DBNAME='twitterdb';
+export DBUSER='postgres';
+export DBPORT=5432;
+export AUTHSECRET='mysecret';
