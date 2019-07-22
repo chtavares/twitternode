@@ -1,6 +1,5 @@
 const dbController = require('./db')
 
-// curl -d '{"content":"Vamos tomar sim", "user_id":1}' -H "Content-Type: application/json" -X POST http://localhost:3000/comments/add/post/1
 exports.addComments = (req, res, next) => {
         const pool = dbController.connectDB()
         pool.query(`INSERT INTO comments (content, user_id, post_id) VALUES ($1, $2, $3)`,
