@@ -36,3 +36,14 @@ exports.deleteComments = (req, res, next) => {
         pool.end()
         res.redirect('/')
 }
+
+exports.editComments = (req, res, next) => {
+        const pool = dbController.connectDB()
+        pool.query(`UPDATE comments SET content = $1 WHERE id = $2`,
+                [String(req.body.content), parseInt(req.params.id)], (err, result) => {
+                        if (err) {
+                                res.status(404).end(err)
+                        }
+                        res.status(200).send(Update)
+                })
+}

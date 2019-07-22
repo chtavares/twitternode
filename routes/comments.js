@@ -8,11 +8,7 @@ router.post('/add/post/:id', commentsController.addComments)
 
 router.get('/:id', commentsController.getCommentsID)
 
-router.put('/:id/edit', (req, res, next) => {
-        const commentID = req.params.id_comments
-        const postID = req.params.id_post
-
-})
+router.put('/:id/edit', commentsController.editComments)
 
 router.delete('/:id/delete', commentsController.deleteComments)
 

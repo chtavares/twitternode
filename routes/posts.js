@@ -8,11 +8,7 @@ router.post('/add', postsController.addPost)
 
 router.get('/:id', postsController.getPostID)
 
-router.put('/:id/edit', (req, res, next) => {
-        const postID = req.params.id_post
-        // edit id post
-
-})
+router.put('/:id/edit', postsController.editPost)
 
 router.delete('/:id/delete', postsController.deletePost)
 

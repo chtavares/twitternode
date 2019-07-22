@@ -1,6 +1,5 @@
 const dbController = require('./db')
 
-// curl -d '{"content":"Partiu tomar mate da donja", "user_id":1}' -H "Content-Type: application/json" -X POST http://localhost:3000/posts/add
 exports.addPost = (req, res, next) => {
         const pool = dbController.connectDB()
         pool.query(`INSERT INTO posts (content, user_id) VALUES ($1, $2)`,
@@ -42,4 +41,15 @@ exports.deletePost = (req, res, next) => {
                 })
         pool.end()
         res.redirect('/')
+}
+
+exports.editPost = (req, res, next) => {
+        const pool = dbController.connectDB()
+        pool.query(`UPDATE posts SET content = $1 WHERE id = $2`,
+                [String(req.body.content), parseInt(req.params.id)], (err, result) => {
+                        if (err) {
+                                res.status(404).end(err)
+                        }
+                        res.status(200).send('Update')
+                })
 }
