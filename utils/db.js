@@ -1,25 +1,30 @@
+const dotenv = require('dotenv');
 const {
-        Pool
+	Pool
 } = require('pg')
 
-exports.connectDB = () => {
-        const pool = new Pool({
-                host: 'localhost',
-                port: 5432,
-                database: "twitterdb",
-                user: 'postgres',
-                ssl: 'any',
-                max: 10,
-        })
 
-        pool.connect()
-                .catch(err => console.error('Connection twitter database error', err.stack))
-        return pool
+
+
+exports.connectDB = () => {
+	dotenv.config()
+	const pool = new Pool({
+		host: process.env.HOST,
+		port: process.env.PORT,
+		database: process.env.DATABASE,
+		user: process.env.USERDB,
+		ssl: 'any',
+		max: 10,
+	})
+
+	pool.connect()
+		.catch(err => console.error('Connection twitter database error', err.stack))
+	return pool
 }
 
 exports.initDB = function intiDB() {
-        const pool = this.connectDB()
-        pool.query(`
+	const pool = this.connectDB()
+	pool.query(`
                 CREATE TABLE IF NOT EXISTS users (
                         id SERIAL PRIMARY KEY UNIQUE,
                         email VARCHAR(40) not null UNIQUE,
@@ -39,10 +44,10 @@ exports.initDB = function intiDB() {
                         post_id integer,
                         FOREIGN KEY (post_id) REFERENCES posts (id),
                         FOREIGN KEY (user_id) REFERENCES users (id))`,
-                (error) => {
-                        if (error) {
-                                console.log(error)
-                        }
-                })
-        pool.end()
+		(error) => {
+			if (error) {
+				console.log(error)
+			}
+		})
+	pool.end()
 }

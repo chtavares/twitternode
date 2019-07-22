@@ -1,20 +1,26 @@
 const express = require('express')
 const bodyParser = require('body-parser');
 
-const app = express()
-
 const adminRoutes = require('./routes/admin');
 const commentsRoutes = require('./routes/comments');
 const postsRoutes = require('./routes/posts');
 const errorRoutes = require('./routes/error');
-const dbController = require('./controller/db')
+const db = require('./utils/db')
 
-dbController.initDB()
+const app = express()
+
+db.initDB()
 
 app.use(bodyParser.urlencoded({
-	extended: false
+    extended: false
 }));
 app.use(bodyParser.json())
+
+app.use((req, res, next) => {
+    req.db = db.connectDB()
+    next()
+    req.db.end()
+})
 
 app.use(adminRoutes)
 app.use('/comments', commentsRoutes)

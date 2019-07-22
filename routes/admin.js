@@ -5,29 +5,23 @@ const router = express.Router();
 
 router.get('/', adminController.showHome)
 
-router.post('/user/create', adminController.addUser)
+router.post('/user', adminController.addUser)
 
 router.get('/user/:id', adminController.getUserID)
 
-router.get('/login', (req, res, next) => {
-        // returns login screem
-})
-
 router.post('/login', (req, res, next) => {
-        // post login screem
+    // post login screem
 
 })
 
-router.get('/logout', (req, res, next) => {
-        // do logout
+router.post('/logout', (req, res, next) => {
+    // do logout
 })
 
+router.put('/user/:id/password',
+    adminController.editUserPassword)
 
-
-router.put('/user/:id/edit', (req, res, next) => {
-        const userID = req.param.id
-        // edit the id user
-
-})
+router.put('/user/:id',
+    adminController.editUser)
 
 module.exports = router
