@@ -28,13 +28,13 @@ exports.initDB = function intiDB() {
 
                 CREATE TABLE IF NOT EXISTS  posts (
                         id SERIAL PRIMARY KEY UNIQUE,
-                        content VARCHAR(40) not null,
+                        content VARCHAR(240) not null,
                         user_id integer not null,
                         FOREIGN KEY (user_id) REFERENCES users (id));
 
                 CREATE TABLE IF NOT EXISTS comments(
                         id SERIAL PRIMARY KEY UNIQUE,
-                        content VARCHAR(40) not null,
+                        content VARCHAR(240) not null,
                         user_id integer,
                         post_id integer,
                         FOREIGN KEY (post_id) REFERENCES posts (id),
