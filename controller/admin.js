@@ -2,7 +2,7 @@ const dbController = require('./db')
 
 exports.showHome = (req, res, next) => {
         const pool = dbController.connectDB()
-        pool.query(`SELECT * FROM posts`, (error, result) => {
+        pool.query(`SELECT * FROM posts ORDER BY id DESC`, (error, result) => {
                 if (error) {
                         res.status(400).send(error)
                 }
