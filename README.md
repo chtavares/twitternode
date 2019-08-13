@@ -7,21 +7,10 @@ Um exemplo de um código back-end que simula as algumas funções de uma aplica�
 Antes de iniciar é necessário definir as variáveis de ambientes utilizadas na aplicação.
 Nesse repositório contém o arquivo setenv.sh com as informações utilizadas no desenvolvimento.
 
-```sh
-source ./setenv.sh
-```
-
-Após basta executar,
-
-```sh
-npm install
-```
-
-e para iniciar o servidor
-
-```sh
-npm start
-```
+1. Create database: `npm run createdb`
+2. Change name value of .env.example to .env and set the key SECRET to any value you wish
+3. Run migrations: `npm run knex migrate:latest`
+5. Run `npm start` or `npm run dev` to start server
 
 ## Utilização da api
 
